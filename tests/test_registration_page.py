@@ -7,12 +7,14 @@ from selenium.webdriver.support import expected_conditions
 
 
 class TestRegistrationPage:
-    def test_registration(self, driver):
-        driver.find_element(By.XPATH, ".//button[text()='Войти в аккаунт']").click() # Кнопка "Войти в аккаунт"
+    
+     enter_in_account = [By.XPATH, ".//button[text()='Войти в аккаунт'"]
+    def test_registration(self, driver, ):
+        driver.find_element(enter_in_account).click() # Кнопка "Войти в аккаунт"
         driver.find_element(By.XPATH, ".//a[@class='Auth_link__1fOlj']").click() # Кнопка "Зарегистрироваться"
-        driver.find_element(By.XPATH, ".//form/fieldset[1]/div[1]/div[1]/input[1]").send_keys("Зиля") # Поле вода имени
-        rand = random.randint(900, 999)
-        email = "zilya_zinnyurova_12_" + str(rand) + "@gmail.com"
+        driver.find_element(By., ".//label[contains(@*, 'Имя')]").send_keys("Зиля") # Поле вода имени
+        numbers_rand = random.randint(111, 999)
+        email = "zilya_zinnyurova_12_" + str(numbers_rand) + "@gmail.com"
         driver.find_element(By.XPATH, ".//form/fieldset[2]/div[1]/div[1]/input[1]").send_keys(email) #  Поле вода email
         driver.find_element(By.XPATH, ".//form/fieldset[3]/div[1]/div[1]/input[1]").send_keys("11%gjcRsx#ilo") #  Поле вода пароля
         driver.find_element(By.XPATH, ".//button[text()='Зарегистрироваться']").click() # Кнопка "Зарегистрироваться"

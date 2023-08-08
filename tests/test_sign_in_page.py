@@ -13,7 +13,7 @@ class TestSignInPage:
         orders_link_text = WebDriverWait(driver, 10).until(expected_conditions.presence_of_element_located((By.XPATH, ".//button[text()='Оформить заказ']"))).text # Находим кнопку
         assert orders_link_text == 'Оформить заказ'
 
-    def test_sign_in_by_personal_area(self, driver):
+    def test_sign_in_by_personal_account_page(self, driver):
         driver.find_element(By.XPATH, ".//p[text()='Личный Кабинет']").click()
         driver.find_element(By.XPATH, ".//form/fieldset[1]/div[1]/div[1]/input[1]").send_keys("zilya_zinnyurova_12_999@gmail.com") #  Поле вода email
         driver.find_element(By.XPATH, ".//form/fieldset[2]/div[1]/div[1]/input[1]").send_keys("jhg35TRFw") # Поле вода пароля
