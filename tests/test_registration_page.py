@@ -1,34 +1,30 @@
 import random
-
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
-
-
+from locators import Locators
 
 class TestRegistrationPage:
-    
-     enter_in_account = [By.XPATH, ".//button[text()='Войти в аккаунт'"]
-    def test_registration(self, driver, ):
-        driver.find_element(enter_in_account).click() # Кнопка "Войти в аккаунт"
-        driver.find_element(By.XPATH, ".//a[@class='Auth_link__1fOlj']").click() # Кнопка "Зарегистрироваться"
-        driver.find_element(By., ".//label[contains(@*, 'Имя')]").send_keys("Зиля") # Поле вода имени
-        numbers_rand = random.randint(111, 999)
+
+     def test_registration(self, driver):
+        driver.find_element(*Locators.BUTTON_ENTER_IN_ACCOUNT).click()
+        driver.find_element(*Locators.LINK_REGISTER).click()
+        driver.find_element(*Locators.NAME_FIELD).send_keys("Зиля")
+        numbers_rand = random.randint(000, 999)
         email = "zilya_zinnyurova_12_" + str(numbers_rand) + "@gmail.com"
-        driver.find_element(By.XPATH, ".//form/fieldset[2]/div[1]/div[1]/input[1]").send_keys(email) #  Поле вода email
-        driver.find_element(By.XPATH, ".//form/fieldset[3]/div[1]/div[1]/input[1]").send_keys("11%gjcRsx#ilo") #  Поле вода пароля
-        driver.find_element(By.XPATH, ".//button[text()='Зарегистрироваться']").click() # Кнопка "Зарегистрироваться"
-        title_text = WebDriverWait(driver, 10).until(expected_conditions.visibility_of_element_located((By.XPATH, ".//h2[text()='Вход']"))).text # Находим текст
+        driver.find_element(*Locators.EMAIL_FIELD).send_keys(email)
+        driver.find_element(*Locators.PASSWORD_FIELD).send_keys("11%gjcRsx#ilo")
+        driver.find_element(*Locators.BUTTON_REGISTER).click()
+        title_text = WebDriverWait(driver, 10).until(expected_conditions.visibility_of_element_located((Locators.TITLE_LOGIN))).text
         assert title_text == 'Вход'
 
-    def test_registration_password_entry_error(self, driver):
-        driver.find_element(By.XPATH, ".//button[text()='Войти в аккаунт']").click() # Кнопка "Войти в аккаунт"
-        driver.find_element(By.XPATH, ".//a[@class='Auth_link__1fOlj']").click() # Кнопка "Зарегистрироваться"
-        driver.find_element(By.XPATH, ".//form/fieldset[1]/div[1]/div[1]/input[1]").send_keys("Зиля") # Поле вода имени
-        rand = random.randint(900, 999)
-        email = "zilya_zinnyurova_12_" + str(rand) + "@gmail.com"
-        driver.find_element(By.XPATH, ".//form/fieldset[2]/div[1]/div[1]/input[1]").send_keys(email) #  Поле вода email
-        driver.find_element(By.XPATH, ".//form/fieldset[3]/div[1]/div[1]/input[1]").send_keys("1eh3") # Поле вода пароля
-        driver.find_element(By.XPATH, ".//button[text()='Зарегистрироваться']").click() # Кнопка "Зарегистрироваться"
-        text_error = WebDriverWait(driver, 10).until(expected_conditions.visibility_of_element_located((By.XPATH, ".//p[(text()='Некорректный пароль')]"))).text  # Находим кнопку
+     def test_registration_password_entry_error(self, driver):
+        driver.find_element(*Locators.BUTTON_ENTER_IN_ACCOUNT).click()
+        driver.find_element(*Locators.LINK_REGISTER).click()
+        driver.find_element(*Locators.NAME_FIELD).send_keys("Зиля")
+        numbers_rand = random.randint(000, 999)
+        email = "zilya_zinnyurova_12_" + str(numbers_rand) + "@gmail.com"
+        driver.find_element(*Locators.EMAIL_FIELD).send_keys(email)
+        driver.find_element(*Locators.PASSWORD_FIELD).send_keys("11%")
+        driver.find_element(*Locators.BUTTON_REGISTER).click()
+        text_error = WebDriverWait(driver, 10).until(expected_conditions.visibility_of_element_located((Locators.ERROR_PASSWORD))).text
         assert text_error == 'Некорректный пароль'
